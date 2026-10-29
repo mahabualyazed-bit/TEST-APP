@@ -1,0 +1,82 @@
+<odoo>
+    <data noupdate="0">
+        <record id="module_category_certification" model="ir.module.category">
+            <field name="name">Certification</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_certificate_menu" model="res.groups">
+            <field name="name">Certificate Menu</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_submit" model="res.groups">
+            <field name="name">Certificate Submit</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_confirm" model="res.groups">
+            <field name="name">Certificate Confirm</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_in_progress" model="res.groups">
+            <field name="name">Certificate In Progress</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_done" model="res.groups">
+            <field name="name">Certificate Done</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_approve" model="res.groups">
+            <field name="name">Certificate Approve</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_cancel" model="res.groups">
+            <field name="name">Certificate Cancel</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_refund" model="res.groups">
+            <field name="name">Certificate Refund</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_payment" model="res.groups">
+            <field name="name">Certificate Register Payment</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="group_certificate_see_all" model="res.groups">
+            <field name="name">See All Certificates</field>
+            <field name="category_id" ref="module_category_certification"/>
+        </record>
+
+        <record id="rule_certificate_employee" model="ir.rule">
+            <field name="name">Certificate: Employee sees own</field>
+            <field name="model_id" ref="model_itb_certificate"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('itb_certification.group_certificate_submit'))]"/>
+        </record>
+
+        <record id="rule_certificate_manager" model="ir.rule">
+            <field name="name">Certificate: Manager sees own and team</field>
+            <field name="model_id" ref="model_itb_certificate"/>
+            <field name="domain_force">['|',
+                ('employee_id.user_id', '=', user.id),
+                ('employee_id.parent_id.user_id', '=', user.id)
+                ]</field>
+            <field name="groups" eval="[(4, ref('itb_certification.group_certificate_submit'))]"/>
+        </record>
+
+        <record id="rule_certificate_see_all" model="ir.rule">
+            <field name="name">Certificate: See All</field>
+            <field name="model_id" ref="model_itb_certificate"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('itb_certification.group_certificate_see_all'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <record id="mail_template_certificate_done_manager" model="mail.template">
+        <field name="name">Certificate: Done Notification to Manager</field>
+        <field name="model_id" ref="itb_certification.model_itb_certificate"/>
+        <field name="subject">Certificate Done - {{ object.certification_id.certificate_name }}</field>
+        <field name="email_to">{{ object.employee_id.parent_id.work_email or '' }}</field>
+        <field name="body_html"><![CDATA[
+            <p>Hello <t t-out="object.employee_id.parent_id.name or 'Manager'"/>,</p>
+            <p>Your employee <strong><t t-out="object.employee_id.name"/></strong> has completed the certificate <a t-attf-href="/web#id=#{object.id}&model=itb.certificate&view_type=form"><t t-out="object.certification_id.certificate_name"/></a>.</p>
+            <p>It requires your approval.</p>
+        ]]></field>
+    </record>
+</odoo>

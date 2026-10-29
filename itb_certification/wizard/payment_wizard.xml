@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_certificate_payment_wizard_form" model="ir.ui.view">
+        <field name="name">itb.certificate.payment.wizard.form</field>
+        <field name="model">itb.certificate.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <group>
+                    <field name="payment" widget="radio"/>
+                    <field name="payment_type" widget="radio" invisible="payment != 'direct_payment'" required="payment == 'direct_payment'"/>
+                    <field name="certificate_date" invisible="payment != 'payroll'" required="payment == 'payroll'"/>
+                    <field name="amount" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="action_create_payment"
+                            type="object"
+                            string="Create"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

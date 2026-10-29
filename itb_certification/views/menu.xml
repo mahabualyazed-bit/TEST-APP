@@ -1,0 +1,30 @@
+<odoo>
+    <menuitem id="menu_itb_certification_root"
+              name="Certification"
+              groups="group_certificate_menu"
+              web_icon="itb_certification,static/description/img.png"
+              sequence="10"/>
+
+    <menuitem id="menu_itb_certification_configuration"
+              name="Configuration"
+              parent="menu_itb_certification_root"
+              sequence="20"/>
+
+    <menuitem id="menu_itb_certificate"
+              name="Certificate"
+              parent="menu_itb_certification_root"
+              action="action_itb_certificate"
+              sequence="10"/>
+
+    <menuitem id="menu_itb_certification_main"
+              name="Certification"
+              parent="menu_itb_certification_configuration"
+              action="action_itb_certification"
+              sequence="10"/>
+
+    <menuitem id="menu_itb_certification_category"
+              name="Categories"
+              parent="menu_itb_certification_configuration"
+              action="action_itb_certification_category"
+              sequence="20"/>
+</odoo>

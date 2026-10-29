@@ -1,0 +1,35 @@
+<odoo>
+    <record id="view_itb_certification_category_list" model="ir.ui.view">
+        <field name="name">itb.certification.category.list</field>
+        <field name="model">itb.certification.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="expense_account_id"/>
+                <field name="analytic_account_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_itb_certification_category_form" model="ir.ui.view">
+        <field name="name">itb.certification.category.form</field>
+        <field name="model">itb.certification.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="expense_account_id" options="{'no_create': True}"/>
+                        <field name="analytic_account_id" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_itb_certification_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">itb.certification.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

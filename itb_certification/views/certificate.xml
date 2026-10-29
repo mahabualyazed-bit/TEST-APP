@@ -1,0 +1,144 @@
+<odoo>
+    <record id="view_itb_certificate_list" model="ir.ui.view">
+        <field name="name">itb.certificate.list</field>
+        <field name="model">itb.certificate</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+                <field name="employee_id"/>
+                <field name="certification_id" optional='hide'/>
+                <field name="certificate_category" optional='hide'/>
+                <field name="certificate_amount" optional='hide'/>
+                <field name="start_date" optional='hide'/>
+                <field name="deadline_date"/>
+                <field name="state" widget="badge" optional='hide'
+                    decoration-info="state == 'draft'"
+                    decoration-warning="state == 'submitted'"
+                    decoration-success="state == 'in_progress'"
+                    decoration-danger="state == 'cancelled'"/>
+
+                <field name="payment_state" widget="badge" optional='hide'
+                       decoration-success="payment_state == 'paid'"
+                       decoration-warning="payment_state == 'in_payment'"
+                       decoration-danger="payment_state == 'not_paid'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_itb_certificate_form" model="ir.ui.view">
+        <field name="name">itb.certificate.form</field>
+        <field name="model">itb.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit"
+                            string="Submit"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="itb_certification.group_certificate_submit"/>
+
+                    <button name="action_in_progress"
+                            string="In Progress"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'submitted'"
+                            groups="itb_certification.group_certificate_in_progress"/>
+
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"
+                            invisible="state != 'submitted'"
+                            groups="itb_certification.group_certificate_cancel"/>
+
+                    <button name="action_done"
+                            string="Done"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'in_progress'"
+                            groups="itb_certification.group_certificate_done"/>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'done'"
+                            groups="itb_certification.group_certificate_approve"/>
+
+                    <button name="action_refund"
+                            string="Refund"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'approve'"
+                            groups="itb_certification.group_certificate_refund"/>
+
+                    <button name="action_register_payment"
+                            string="Register Payment"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'refunded' or payment_state != 'not_paid'"
+                            groups="itb_certification.group_certificate_payment"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,in_progress,done,approve"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_cash_trans" type="object"
+                                class="oe_stat_button" icon="fa-money"
+                                invisible="not cash_trans_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Cash Out</span>
+                            </div>
+                        </button>
+                        <button name="action_open_bank_trans" type="object"
+                                class="oe_stat_button" icon="fa-university"
+                                invisible="not bank_trans_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Bank Out</span>
+                            </div>
+                        </button>
+                        <button name="action_open_payslip" type="object"
+                                class="oe_stat_button" icon="fa-money"
+                                invisible="not payslip_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Payslip</span>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Paid" bg_color="text-bg-success" invisible="payment_state != 'paid'"/>
+                    <widget name="web_ribbon" title="In Payment" bg_color="text-bg-warning" invisible="payment_state != 'in_payment'"/>
+                    <group>
+                        <group>
+                            <field name="create_uid" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                            <field name="employee_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="certification_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="certificate_category" readonly="1"/>
+                            <field name="analytic_account_id" invisible="not analytic_account_id"/>
+                            <field name="certificate_amount" readonly="state != 'draft'"/>
+                            <field name="start_date" readonly="state != 'draft'"/>
+                            <field name="deadline_date" readonly="state != 'draft'"/>
+                            <field name="certificate_attachment_filename" invisible="1"/>
+                            <field name="certificate_attachment"
+                                   widget="binary"
+                                   filename="certificate_attachment_filename"
+                                   invisible="state != 'in_progress'"
+                                   required="state == 'in_progress'"/>
+                            <field name="done_date" readonly="1" invisible="state != 'done'"/>
+                            <field name="cancel_reason" readonly="1" invisible="state != 'cancelled'"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter followers="message_follower_ids" activities="activity_ids" messages="message_ids"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_itb_certificate" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">itb.certificate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <record id="mail_template_certificate_submit" model="mail.template">
+        <field name="name">Certificate: Assigned Notification</field>
+        <field name="model_id" ref="itb_certification.model_itb_certificate"/>
+        <field name="subject">Certificate Assigned - {{ object.certification_id.certificate_name }}</field>
+        <field name="email_to">{{ object.employee_id.work_email or '' }}</field>
+        <field name="body_html"><![CDATA[
+         <p>Hello <t t-out="object.employee_id.name"/>,</p>
+         <p>You have been assigned to the certificate <a t-attf-href="/web#id=#{object.id}&model=itb.certificate&view_type=form"><t t-out="object.certification_id.certificate_name"/></a>.</p>
+         <p>Please follow up on it.</p>
+]]></field>
+    </record>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_itb_certification,itb.certification,model_itb_certification,base.group_user,1,1,1,1
+access_itb_certification_category,itb.certification.category,model_itb_certification_category,base.group_user,1,1,1,1
+access_itb_certificate,itb.certificate,model_itb_certificate,base.group_user,1,1,1,1
+access_itb_certificate_cancel_wizard,itb.certificate.cancel.wizard,model_itb_certificate_cancel_wizard,base.group_user,1,1,1,1
+access_itb_certificate_see_all,itb.certificate.see.all,model_itb_certificate,itb_certification.group_certificate_see_all,1,0,0,0
+access_itb_certificate_payment_wizard,itb.certificate.payment.wizard,model_itb_certificate_payment_wizard,base.group_user,1,1,1,1
+access_itb_certificate_bulk_payment_wizard,itb.certificate.bulk.payment.wizard,model_itb_certificate_bulk_payment_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,35 @@
+<odoo>
+    <record id="view_trans_cash_form_inherit_cert" model="ir.ui.view">
+        <field name="name">trans.cash.form.inherit.cert</field>
+        <field name="model">trans.cash</field>
+        <field name="inherit_id" ref="cash_and_bank.trans_cash_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_open_certificate" type="object"
+                        class="oe_stat_button" icon="fa-certificate"
+                        invisible="not cash_certificate_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Certificate</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_trans_bank_form_inherit_cert" model="ir.ui.view">
+        <field name="name">trans.bank.form.inherit.cert</field>
+        <field name="model">trans.bank</field>
+        <field name="inherit_id" ref="cash_and_bank.trans_bank_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_open_certificate" type="object"
+                        class="oe_stat_button" icon="fa-certificate"
+                        invisible="not bank_certificate_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Certificate</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_itb_certificate_cancel_wizard_form" model="ir.ui.view">
+        <field name="name">itb.certificate.cancel.wizard.form</field>
+        <field name="model">itb.certificate.cancel.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="cancel_reason"/>
+                </group>
+                <footer>
+                    <button name="action_save"
+                            string="Save"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Discard"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
